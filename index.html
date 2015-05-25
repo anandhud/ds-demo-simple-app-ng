@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>experiment</title>
+
+	<link rel="stylesheet" type="text/css" href="css/screen.css" />
+
+	<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+	<script type="text/javascript" src="bower_components/deepstream.io-client-js/dist/deepstream.js"></script>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+	<script type="text/javascript" src="src/start-ng.js"></script>
+
+</head>
+<body ng-app="ds-demo" ng-controller="user">
+	<div id="wrapper">
+		<div class="col left">
+			<ul class="users">
+				<li ng-class="user.isActive ? 'active' : 'bla'"
+						ng-click="$parent.currentUser.showUser( user.name )"
+						ng-repeat="user in users.list">
+					<em>
+						<span ng-bind="user.get('firstname')"></span>
+						<span ng-bind="user.get('lastname')"></span>
+					</em>
+					<span ng-bind="user.get('title')"></span>
+					<div class="delete-button fa fa-remove" ng-click="users.deleteUser( user.name )"></div>
+				</li>
+			</ul>
+			<div class="addUser" ng-click="users.addUser()"><i class="fa fa-plus"></i>  <span>add user</span></div>
+		</div>
+		<div class="col right">
+			<fieldset>
+				<legend>General data</legend>
+				<ul class="fields">
+					<li>
+						<label>Firstname</label>
+						<input ng-model="currentUser.firstname" id="firstname" type="text" />
+					</li>
+					<li>
+						<label>Lastname</label>
+						<input ng-model="currentUser.lastname" id="lastname" type="text" />
+					</li>
+					<li>
+						<label>Title</label>
+						<input ng-model="currentUser.title" id="title" type="text" />
+					</li>
+				</ul>
+			</fieldset>
+
+			<fieldset>
+				<legend>Address</legend>
+				<ul class="fields">
+					<li>
+						<label>Street</label>
+						<input ng-model="currentUser.street" id="street" type="text" />
+					</li>
+					<li>
+						<label>Nr</label>
+						<input ng-model="currentUser.number" id="number" type="text" />
+					</li>
+					<li>
+						<label>Post Code</label>
+						<input ng-model="currentUser.postcode" id="postcode" type="text" />
+					</li>
+					<li>
+						<label>City</label>
+						<input ng-model="currentUser.city" id="city" type="text" />
+					</li>
+				</ul>
+			</fieldset>
+		</div>
+	</div>
+</body>
+</html>
