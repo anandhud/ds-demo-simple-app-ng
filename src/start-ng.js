@@ -1,15 +1,16 @@
+"use strict";
+
 angular
 .module( 'ds-demo', [] )
 .service( 'deepstream', function() {
-	var client = deepstream( 'localhost:6020' )
-		client.login({ username: 'ds-simple-input-' + client.getUid() });
+	var client = deepstream( 'localhost:6020' );
+	client.login( {username: 'ds-simple-input-' + client.getUid()} );
 	return client;
-})
+} )
 .controller( 'user', function( deepstream, $scope ) {
-
 	function User() {
 		this.record = deepstream.record.getAnonymousRecord();
-		this.getField = getField.bind(this, this.record);
+		this.getField = getField.bind( this, this.record );
 		this.firstname = this.getField( 'firstname' );
 		this.lastname = this.getField( 'lastname' );
 		this.title = this.getField( 'title' );
@@ -29,41 +30,51 @@ angular
 		this.list = [];
 	}
 	Users.prototype.updateEntries = function( entries ) {
-		this.list = [];
-		for( var i=0; i < entries.length; i++) {
-				var record = deepstream.record.getRecord( entries[i] );
-				record.subscribe(function() { if (!$scope.$$phase) $scope.$apply(); });
-				this.list.push( record );
+		function scopeApply() {
+			if( !$scope.$$phase ) {
+				$scope.$apply();
+			}
 		}
-		if (!$scope.$$phase) $scope.$apply();
-	}
+		this.list = [];
+		for( var i = 0; i < entries.length; i++ ) {
+			var record = deepstream.record.getRecord( entries[i] );
+			record.subscribe( scopeApply );
+			this.list.push( record );
+		}
+		scopeApply();
+	};
 	Users.prototype.addUser = function( ) {
 		var name = 'users/' + deepstream.getUid();
 		var record = deepstream.record.getRecord( name );
-		record.set({
+		record.set( {
 			firstname: 'New',
 			lastname: 'User',
 			title: '-'
-		});
+		} );
 		this.record.addEntry( name );
 	};
-  Users.prototype.deleteUser = function( recordName ) {
+	Users.prototype.deleteUser = function( recordName ) {
 		this.record.removeEntry( recordName );
 	};
 	$scope.users = new Users();
 
 	function getField( record, name ) {
 		var self = this;
-		Object.defineProperty(self, name, {
-			get: function() { return self.record.get( name); },
-			set: function(newValue) {
-				if (newValue===undefined) return;
-				self.record.set( name, newValue);
-				return newValue;
+		Object.defineProperty( self, name, {
+			get: function() {
+				return self.record.get( name );
+			},
+			set: function( newValue ) {
+				if( newValue === undefined ) {
+					return;
+				}
+				self.record.set( name, newValue );
 			}
-		});
-		record.subscribe(name, function( value ) {
-			if (!$scope.$$phase) $scope.$apply();
-		});
+		} );
+		record.subscribe( name, function() {
+			if( !$scope.$$phase ) {
+				$scope.$apply();
+			}
+		} );
 	}
-});
+} );
