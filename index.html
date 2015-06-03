@@ -12,38 +12,38 @@
 	<script type="text/javascript" src="src/start-ng.js"></script>
 
 </head>
-<body ng-app="ds-demo" ng-controller="user">
+<body ng-app="ds-demo">
 	<div id="wrapper">
-		<div class="col left">
+		<div class="col left" ng-controller="users">
 			<ul class="users">
-				<li ng-class="user.isActive ? 'active' : 'bla'"
-						ng-click="$parent.currentUser.showUser( user.name )"
-						ng-repeat="user in users.list">
+				<li ng-class="{'active': $parent.selectedUser === user.name }"
+						ng-click="selectUser( user.name )"
+						ng-repeat="user in users">
 					<em>
 						<span ng-bind="user.get('firstname')"></span>
 						<span ng-bind="user.get('lastname')"></span>
 					</em>
 					<span ng-bind="user.get('title')"></span>
-					<div class="delete-button fa fa-remove" ng-click="users.deleteUser( user.name )"></div>
+					<div class="delete-button fa fa-remove" ng-click="deleteUser( user.name )"></div>
 				</li>
 			</ul>
-			<div class="addUser" ng-click="users.addUser()"><i class="fa fa-plus"></i>  <span>add user</span></div>
+			<div class="addUser" ng-click="addUser()"><i class="fa fa-plus"></i>  <span>add user</span></div>
 		</div>
-		<div class="col right">
+		<div class="col right"  ng-controller="user">
 			<fieldset>
 				<legend>General data</legend>
 				<ul class="fields">
 					<li>
-						<label>Firstname</label>
-						<input ng-model="currentUser.firstname" id="firstname" type="text" />
+						<label for="firstname">Firstname</label>
+						<input ng-model="firstname" id="firstname" type="text" />
 					</li>
 					<li>
-						<label>Lastname</label>
-						<input ng-model="currentUser.lastname" id="lastname" type="text" />
+						<label for="lastname">Lastname</label>
+						<input ng-model="lastname" id="lastname" type="text" />
 					</li>
 					<li>
-						<label>Title</label>
-						<input ng-model="currentUser.title" id="title" type="text" />
+						<label for="title">Title</label>
+						<input ng-model="title" id="title" type="text" />
 					</li>
 				</ul>
 			</fieldset>
@@ -53,19 +53,19 @@
 				<ul class="fields">
 					<li>
 						<label>Street</label>
-						<input ng-model="currentUser.street" id="street" type="text" />
+						<input ng-model="street" id="street" type="text" />
 					</li>
 					<li>
 						<label>Nr</label>
-						<input ng-model="currentUser.number" id="number" type="text" />
+						<input ng-model="number" id="number" type="text" />
 					</li>
 					<li>
 						<label>Post Code</label>
-						<input ng-model="currentUser.postcode" id="postcode" type="text" />
+						<input ng-model="postcode" id="postcode" type="text" />
 					</li>
 					<li>
 						<label>City</label>
-						<input ng-model="currentUser.city" id="city" type="text" />
+						<input ng-model="city" id="city" type="text" />
 					</li>
 				</ul>
 			</fieldset>
