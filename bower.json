@@ -1,12 +1,9 @@
 {
-  "name": "ds-simple-input",
+  "name": "ds-demo-simple-app-angular2",
   "version": "0.0.0",
-  "homepage": "https://github.com/hoxton-one/ds-demo-simple-app-ng",
-  "authors": [
-    "Wolfram Hempel <hempel.wolfram@gmail.com>",
-    "Yasser Fadl <yasser.fadl@gmail.com>"
-  ],
-  "description": "A sample app using angular",
+  "homepage": "https://github.com/deepstreamIO/ds-demo-simple-app-angular2",
+  "authors": "deepstreamHub GmbH",
+  "description": "A sample app using angular2",
   "license": "MIT",
   "private": true,
   "ignore": [
@@ -17,7 +14,9 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.3.15",
     "deepstream.io-client-js": "latest"
+  },
+  "devDependencies": {
+    "angular": "^1.5.7"
   }
 }

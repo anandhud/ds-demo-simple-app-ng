@@ -22,7 +22,7 @@ angular
 				}
 			});
 		});
-		
+
 		record.subscribe(function() {
 			if( !$scope.$$phase ) {
 				$scope.$apply();
@@ -42,7 +42,7 @@ angular
 			'city'
 		];
 	var record = deepstream.record.getAnonymousRecord();
-	
+
 	bindFields( $scope, record, fields );
 
 	$scope.$root.$on( 'show-user', function( event, recordName ) {
@@ -71,7 +71,7 @@ angular
 
 	$scope.addUser = function() {
 		var name = 'users/' + deepstream.getUid();
-		
+
 		deepstream
 			.record
 			.getRecord( name )
